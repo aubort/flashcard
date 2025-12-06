@@ -23,7 +23,21 @@ function shuffle(array) {
 
 function App() {
   const [level, setLevel] = useState(1);
-  const [levelWords, setLevelWords] = useState([]);
+  // Calculate/Shuffle level words when level changes
+  const levelWords = useMemo(() => {
+    const start = (level - 1) * WORDS_PER_LEVEL;
+    const end = start + WORDS_PER_LEVEL;
+    const slice = words.slice(start, end);
+    return shuffle(slice);
+  }, [level]);
+
+  // Reset state when level changes
+  useEffect(() => {
+    setWordIndex(0);
+    setIsValidated(false);
+    setIsLevelComplete(false);
+  }, [level]);
+
   const [wordIndex, setWordIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [isValidated, setIsValidated] = useState(false);
@@ -59,17 +73,6 @@ function App() {
       speakWord("Bonjour"); // Test the voice
     }
   };
-
-  // Initialize level words
-  useEffect(() => {
-    const start = (level - 1) * WORDS_PER_LEVEL;
-    const end = start + WORDS_PER_LEVEL;
-    const slice = words.slice(start, end);
-    setLevelWords(shuffle(slice));
-    setWordIndex(0);
-    setIsValidated(false);
-    setIsLevelComplete(false);
-  }, [level]);
 
   const currentWord = levelWords[wordIndex];
 
