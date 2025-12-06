@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import confetti from 'canvas-confetti';
-import { Star, Check, Volume2, ArrowRight, Home } from 'lucide-react';
+import { Star, Check, Volume2, ArrowRight, Home, Settings } from 'lucide-react';
 import Flashcard from './components/Flashcard';
 import LevelIndicator from './components/LevelIndicator';
 import { words } from './data/words';
-import { speakWord } from './utils/speech';
+import { speakWord, getFrenchVoices, setVoice } from './utils/speech';
 import './App.css';
 
 const WORDS_PER_LEVEL = 10;
@@ -28,6 +28,37 @@ function App() {
   const [score, setScore] = useState(0);
   const [isValidated, setIsValidated] = useState(false);
   const [isLevelComplete, setIsLevelComplete] = useState(false);
+
+  // Voice Settings
+  const [availableVoices, setAvailableVoices] = useState([]);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // Initialize voices
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = getFrenchVoices();
+      setAvailableVoices(voices);
+
+      // Auto-select a good voice if available
+      const preferred = voices.find(v =>
+        v.name.includes("Google") || v.name.includes("Siri") || v.name.includes("Audrey") || v.name.includes("Thomas")
+      );
+      if (preferred) setVoice(preferred);
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    return () => { window.speechSynthesis.onvoiceschanged = null; };
+  }, []);
+
+  const handleVoiceChange = (e) => {
+    const voiceName = e.target.value;
+    const voice = availableVoices.find(v => v.name === voiceName);
+    if (voice) {
+      setVoice(voice);
+      speakWord("Bonjour"); // Test the voice
+    }
+  };
 
   // Initialize level words
   useEffect(() => {
@@ -69,7 +100,7 @@ function App() {
       setLevel(l => l + 1);
     } else {
       // Game Over / Restart
-      alert("Félicitations! You finished all words!");
+      alert("Félicitations ! Tu as terminé tous les mots !");
       setLevel(1);
       setScore(0);
     }
@@ -97,18 +128,18 @@ function App() {
 
   const progress = ((wordIndex + 1) / WORDS_PER_LEVEL) * 100;
 
-  if (!currentWord) return <div className="loading">Loading...</div>;
+  if (!currentWord) return <div className="loading">Chargement...</div>;
 
   if (isLevelComplete) {
     return (
       <div className="app-container level-complete-screen">
-        <h1>Level {level} Complete!</h1>
+        <h1>Niveau {level} Terminé !</h1>
         <div className="stars-gained">
           <Star size={64} fill="#FFD700" color="#FFD700" className="floating-star" />
-          <p>+10 Stars!</p>
+          <p>+10 Étoiles !</p>
         </div>
         <button className="btn-next-level" onClick={nextLevel}>
-          Start Level {level + 1}
+          Commencer le Niveau {level + 1}
         </button>
       </div>
     )
@@ -136,7 +167,7 @@ function App() {
           {!isValidated ? (
             <button className="btn-validate" onClick={handleValidate}>
               <Check size={28} />
-              <span>Check & Listen</span>
+              <span>Vérifier & Écouter</span>
             </button>
           ) : (
             <div className="validated-controls">
@@ -144,7 +175,7 @@ function App() {
                 <Volume2 size={24} />
               </button>
               <button className="btn-next" onClick={nextWord}>
-                <span>{wordIndex === levelWords.length - 1 ? "Finish Level" : "Next Word"}</span>
+                <span>{wordIndex === levelWords.length - 1 ? "Terminer le Niveau" : "Mot Suivant"}</span>
                 <ArrowRight size={28} />
               </button>
             </div>
@@ -153,7 +184,24 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>Word {wordIndex + 1} of {WORDS_PER_LEVEL} in Level {level}</p>
+        <div className="footer-info">
+          <p>Mot {wordIndex + 1} sur {WORDS_PER_LEVEL} — Niveau {level}</p>
+        </div>
+        <div className="voice-selector">
+          <button className="btn-settings" onClick={() => setShowSettings(!showSettings)} title="Changer la voix">
+            <Settings size={18} />
+          </button>
+          {showSettings && (
+            <select onChange={handleVoiceChange} className="voice-select-dropdown">
+              <option value="">-- Choisir une voix --</option>
+              {availableVoices.map(v => (
+                <option key={v.name} value={v.name}>
+                  {v.name}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
       </footer>
     </div>
   );

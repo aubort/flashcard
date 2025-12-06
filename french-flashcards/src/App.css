@@ -180,6 +180,53 @@ button:active {
   color: #888;
   font-size: 0.9rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.voice-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  margin-top: 5px;
+}
+
+.btn-settings {
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #666;
+  font-size: 1rem;
+  box-shadow: none;
+  min-width: unset;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+
+.btn-settings:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.voice-select-dropdown {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: white;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+  animation: fadeIn 0.2s;
+}
+
+.voice-select-dropdown:focus {
+  border-color: #4ECDC4;
 }
 
 @keyframes pulse {

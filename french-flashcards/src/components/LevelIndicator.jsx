@@ -4,7 +4,7 @@ import './LevelIndicator.css';
 const LevelIndicator = ({ level, totalLevels }) => {
     return (
         <div className="level-indicator">
-            <span>Level {level} / {totalLevels}</span>
+            <span>Niveau {level} / {totalLevels}</span>
         </div>
     );
 };
