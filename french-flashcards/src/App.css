@@ -4,6 +4,7 @@
   min-height: 100vh;
   justify-content: space-between;
   padding: 1rem;
+  font-family: 'Comic Neue', cursive;
 }
 
 .level-complete-screen {
