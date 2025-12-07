@@ -6,7 +6,7 @@ export const words = [
     "plus", "dire", "me", "on", "mon", "lui", "nous", "comme", "mais", "pouvoir",
     "avec", "tout", "y", "aller", "voir", "en", "bien", "où", "sans", "tu",
     "ou", "leur", "homme", "si", "deux", "mari", "moi", "vouloir", "te", "femme",
-    "venir", "grand", "devoir", "là", "jour", "prendre", "mêmem", "votre", "tout", "rien",
+    "venir", "grand", "devoir", "là", "jour", "prendre", "même", "votre", "tout", "rien",
     "petit", "encore", "aussi", "quelque", "dont", "tout", "mer", "trouver", "donner", "temps",
     "ça", "peu", "même", "falloir", "sous", "parler", "alors", "main", "chose", "ton",
     "mettre", "vie", "travailler", "yeux", "sa", "monde", "quoi", "enfant", "après", "jamais"

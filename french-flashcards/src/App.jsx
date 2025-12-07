@@ -162,7 +162,6 @@ function App() {
       </header>
 
       <main className="game-area">
-        <h1>French Flashcards</h1>
 
         <Flashcard word={currentWord} animate={!isValidated} />
 
