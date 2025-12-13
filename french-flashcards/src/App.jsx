@@ -10,6 +10,7 @@ import './App.css';
 
 const WORDS_PER_LEVEL = 10;
 const TOTAL_LEVELS = Math.ceil(words.length / WORDS_PER_LEVEL);
+const DELAY_VALIDATE_LISTEN_WORD = 1500;
 
 // Fisher-Yates shuffle
 function shuffle(array) {
@@ -42,6 +43,17 @@ function App() {
   const [score, setScore] = useState(0);
   const [isValidated, setIsValidated] = useState(false);
   const [isLevelComplete, setIsLevelComplete] = useState(false);
+  const [isInteractable, setIsInteractable] = useState(false);
+  const currentWord = levelWords[wordIndex];
+
+  // Interaction delay effect
+  useEffect(() => {
+    setIsInteractable(false);
+    const timer = setTimeout(() => {
+      setIsInteractable(true);
+    }, DELAY_VALIDATE_LISTEN_WORD);
+    return () => clearTimeout(timer);
+  }, [currentWord]);
 
   // Voice Settings
   const [availableVoices, setAvailableVoices] = useState([]);
@@ -74,7 +86,7 @@ function App() {
     }
   };
 
-  const currentWord = levelWords[wordIndex];
+
 
   const handleValidate = () => {
     speakWord(currentWord);
@@ -167,7 +179,12 @@ function App() {
 
         <div className="controls">
           {!isValidated ? (
-            <button className="btn-validate" onClick={handleValidate}>
+            <button
+              className={`btn-validate ${!isInteractable ? 'disabled' : ''}`}
+              onClick={handleValidate}
+              disabled={!isInteractable}
+              style={{ opacity: isInteractable ? 1 : 0.5, cursor: isInteractable ? 'pointer' : 'not-allowed' }}
+            >
               <Check size={28} />
               <span>Vérifier & Écouter</span>
             </button>

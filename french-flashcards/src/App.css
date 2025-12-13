@@ -137,6 +137,13 @@ button {
   gap: 10px;
   transition: transform 0.2s, background-color 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE 10+ */
 }
 
 button:active {
