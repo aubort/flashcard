@@ -2,12 +2,12 @@
 export const words = [
     "le", "de", "un", "être", "et", "à", "il", "avoir", "ne", "je",
     "son", "que", "se", "qui", "ce", "dans", "en", "du", "elle", "au",
-    "de", "ce", "le", "pour", "pas", "que", "vous", "par", "sur", "faire",
+    "la maison", "l'école", "le jardin", "la fleur", "pour", "pas", "la porte", "vous", "par", "sur", "faire",
     "plus", "dire", "me", "on", "mon", "lui", "nous", "comme", "mais", "pouvoir",
-    "avec", "tout", "y", "aller", "voir", "en", "bien", "où", "sans", "tu",
-    "ou", "leur", "homme", "si", "deux", "mari", "moi", "vouloir", "te", "femme",
-    "venir", "grand", "devoir", "là", "jour", "prendre", "même", "votre", "tout", "rien",
-    "petit", "encore", "aussi", "quelque", "dont", "tout", "mer", "trouver", "donner", "temps",
-    "ça", "peu", "même", "falloir", "sous", "parler", "alors", "main", "chose", "ton",
-    "mettre", "vie", "travailler", "yeux", "sa", "monde", "quoi", "enfant", "après", "jamais"
+    "avec", "tout", "aller", "voir", "la fenêtre", "bien", "où", "sans", "tu",
+    "ou", "leur", "l'homme", "si", "deux", "le mari", "moi", "vouloir", "te", "la femme",
+    "venir", "grand", "devoir", "là", "le jour", "prendre", "même", "votre", "la table", "rien",
+    "petit", "encore", "aussi", "quelque", "dont", "la chaise", "le chien", "trouver", "donner", "le temps",
+    "ça", "peu", "le chat", "falloir", "sous", "parler", "alors", "la main", "la chose", "ton",
+    "mettre", "la vie", "travailler", "les yeux", "sa", "le monde", "quoi", "l'enfant", "après", "jamais"
 ];
