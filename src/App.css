@@ -4,7 +4,6 @@
   max-height: 100vh;
   justify-content: space-between;
   padding: 1rem;
-  font-family: 'Comic Neue', cursive;
 }
 
 .level-complete-screen {
@@ -109,7 +108,6 @@
 }
 
 h1 {
-  font-family: 'Comic Sans MS', cursive;
   color: #FF6B6B;
   font-size: 3rem;
   margin-bottom: 0;
