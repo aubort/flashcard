@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import confetti from 'canvas-confetti';
-import { Star, Check, Volume2, ArrowRight, Home, Settings } from 'lucide-react';
+import { Star, Check, Volume2, ArrowRight, Home, Settings, ALargeSmall } from 'lucide-react';
 import Flashcard from './components/Flashcard';
 import LevelIndicator from './components/LevelIndicator';
 import { words } from './data/words';
@@ -58,6 +58,7 @@ function App() {
   // Voice Settings
   const [availableVoices, setAvailableVoices] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [isUpperCase, setIsUpperCase] = useState(true);
 
   // Initialize voices
   useEffect(() => {
@@ -175,7 +176,7 @@ function App() {
 
       <main className="game-area">
 
-        <Flashcard word={currentWord} animate={!isValidated} />
+        <Flashcard word={currentWord} animate={!isValidated} isUpperCase={isUpperCase} />
 
         <div className="controls">
           {!isValidated ? (
@@ -211,14 +212,25 @@ function App() {
             <Settings size={18} />
           </button>
           {showSettings && (
-            <select onChange={handleVoiceChange} className="voice-select-dropdown">
-              <option value="">-- Choisir une voix --</option>
-              {availableVoices.map(v => (
-                <option key={v.name} value={v.name}>
-                  {v.name}
-                </option>
-              ))}
-            </select>
+            <div className="settings-panel">
+              <button
+                className={`btn-toggle-case ${isUpperCase ? 'active' : ''}`}
+                onClick={() => setIsUpperCase(!isUpperCase)}
+                title="Majuscules / Minuscules"
+              >
+                <ALargeSmall size={18} />
+                <span>{isUpperCase ? "ABC" : "abc"}</span>
+              </button>
+
+              <select onChange={handleVoiceChange} className="voice-select-dropdown">
+                <option value="">-- Choisir une voix --</option>
+                {availableVoices.map(v => (
+                  <option key={v.name} value={v.name}>
+                    {v.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
         </div>
       </footer>

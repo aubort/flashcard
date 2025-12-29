@@ -25,6 +25,10 @@
     justify-content: center;
 }
 
+.word.uppercase {
+    text-transform: uppercase;
+}
+
 .diphthong {
     color: #FF5722;
     /* Deep Orange */

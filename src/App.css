@@ -252,6 +252,53 @@ button:active {
   }
 }
 
+.settings-panel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 12px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.btn-toggle-case {
+  background: #f0f0f0;
+  color: #333;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 10px;
+  box-shadow: none;
+  min-width: unset;
+  border: 2px solid transparent;
+  width: auto;
+  height: auto;
+}
+
+.btn-toggle-case.active {
+  background: #4ECDC4;
+  color: white;
+}
+
+.btn-toggle-case span {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
   h1 {
