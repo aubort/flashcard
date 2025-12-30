@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Check, ArrowRight, Star } from 'lucide-react';
 import { generateProblem } from '../utils/mathGenerator';
 import confetti from 'canvas-confetti';
+import Flashcard from './Flashcard';
+import ProgressBar from './ProgressBar';
+import LevelComplete from './LevelComplete';
 import './MathGame.css';
+
+
 
 const PROBLEMS_PER_LEVEL = 10;
 const MAX_MATH_LEVEL = 4;
 
-const MathGame = ({ onCorrect }) => {
+const MathGame = ({ onCorrect, onStatusChange }) => {
     const [level, setLevel] = useState(1);
     const [problemIndex, setProblemIndex] = useState(0);
+
     const [problem, setProblem] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
@@ -29,6 +35,16 @@ const MathGame = ({ onCorrect }) => {
     useEffect(() => {
         loadNewProblem();
     }, []);
+
+    useEffect(() => {
+        onStatusChange && onStatusChange({
+            level: level,
+            totalLevels: MAX_MATH_LEVEL,
+            currentStep: problemIndex + 1,
+            totalSteps: PROBLEMS_PER_LEVEL
+        });
+    }, [level, problemIndex]);
+
 
     const handleOptionSelect = (option) => {
         if (isCorrect === true) return;
@@ -94,34 +110,25 @@ const MathGame = ({ onCorrect }) => {
 
     if (isLevelComplete) {
         return (
-            <div className="math-level-complete">
-                <h1>Niveau {level} Terminé !</h1>
-                <div className="stars-gained">
-                    <Star size={64} fill="#FFD700" color="#FFD700" className="floating-star" />
-                    <p>Bravo ! +10 Étoiles !</p>
-                </div>
-                <button className="btn-next-level-math" onClick={nextLevel}>
-                    {level < MAX_MATH_LEVEL ? `Commencer le Niveau ${level + 1}` : "Recommencer"}
-                </button>
-            </div>
+            <LevelComplete
+                level={level}
+                onNext={nextLevel}
+                isLastLevel={level === MAX_MATH_LEVEL}
+                title={`Maths - Niveau ${level} Terminé !`}
+            />
         );
     }
+
 
     if (!problem) return <div className="loading">Chargement...</div>;
 
     return (
         <div className="math-game">
-            <div className="math-header">
-                <span className="math-level-badge">Niveau {level}</span>
-                <div className="math-progress-container">
-                    <div className="math-progress-bar" style={{ width: `${progress}%` }}></div>
-                </div>
-                <span className="math-step-info">{problemIndex + 1} / {PROBLEMS_PER_LEVEL}</span>
-            </div>
+            <Flashcard animate={isAnimate} color="#6c5ce7">
+                {problem.question}
+            </Flashcard>
 
-            <div className={`math-card ${isAnimate ? 'pop' : ''}`}>
-                <div className="math-question">{problem.question}</div>
-            </div>
+
 
             <div className="options-grid">
                 {problem.options.map((option) => (
@@ -139,20 +146,22 @@ const MathGame = ({ onCorrect }) => {
             <div className="math-controls">
                 {isCorrect !== true ? (
                     <button
-                        className={`btn-validate ${selectedOption === null ? 'disabled' : ''}`}
+                        className={`btn-primary ${selectedOption === null ? 'disabled' : ''}`}
                         onClick={handleValidate}
                         disabled={selectedOption === null}
+                        style={{ opacity: selectedOption === null ? 0.5 : 1 }}
                     >
                         <Check size={28} />
                         <span>Vérifier</span>
                     </button>
                 ) : (
-                    <button className="btn-next" onClick={nextProblem}>
+                    <button className="btn-accent pulse" onClick={nextProblem}>
                         <span>{problemIndex === PROBLEMS_PER_LEVEL - 1 ? "Terminer le Niveau" : "Suivant"}</span>
                         <ArrowRight size={28} />
                     </button>
                 )}
             </div>
+
 
             {isCorrect === false && (
                 <div className="feedback-error">

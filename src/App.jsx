@@ -5,7 +5,12 @@ import { Star, Check, Volume2, ArrowRight, Home, Settings, ALargeSmall, Language
 import Flashcard from './components/Flashcard';
 import LevelIndicator from './components/LevelIndicator';
 import MathGame from './components/MathGame';
+import GameHeader from './components/GameHeader';
+import LevelComplete from './components/LevelComplete';
+
 import { words } from './data/words';
+
+
 import { speakWord, getFrenchVoices, setVoice } from './utils/speech';
 import './App.css';
 
@@ -61,6 +66,13 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [isUpperCase, setIsUpperCase] = useState(true);
   const [appMode, setAppMode] = useState('french'); // 'french' or 'math'
+  const [mathStatus, setMathStatus] = useState({
+    level: 1,
+    totalLevels: 4,
+    currentStep: 1,
+    totalSteps: 10
+  });
+
 
   // Initialize voices
   useEffect(() => {
@@ -150,22 +162,22 @@ function App() {
 
   if (isLevelComplete) {
     return (
-      <div className="app-container level-complete-screen">
-        <h1>Niveau {level} Terminé !</h1>
-        <div className="stars-gained">
-          <Star size={64} fill="#FFD700" color="#FFD700" className="floating-star" />
-          <p>+10 Étoiles !</p>
-        </div>
-        <button className="btn-next-level" onClick={nextLevel}>
-          Commencer le Niveau {level + 1}
-        </button>
+      <div className="app-container">
+        <LevelComplete
+          level={level}
+          onNext={nextLevel}
+          isLastLevel={level === TOTAL_LEVELS}
+          title={`Niveau ${level} Terminé !`}
+        />
       </div>
-    )
+    );
   }
+
+
 
   return (
     <div className="app-container">
-      <header className="header">
+      <nav className="top-nav">
         <div className="mode-switcher">
           <button
             className={`btn-mode ${appMode === 'french' ? 'active' : ''}`}
@@ -182,30 +194,41 @@ function App() {
             <span>Maths</span>
           </button>
         </div>
+      </nav>
 
-        {appMode === 'french' && (
-          <>
-            <LevelIndicator level={level} totalLevels={TOTAL_LEVELS} />
-            <div className="progress-bar-container">
-              <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-            </div>
-          </>
-        )}
-        <div className="score">
-          <Star className="star-icon" fill="#FFD700" color="#FFD700" />
-          <span>{score}</span>
-        </div>
-      </header>
+      {appMode === 'french' ? (
+
+        <GameHeader
+          level={level}
+          totalLevels={TOTAL_LEVELS}
+          currentStep={wordIndex + 1}
+          totalSteps={WORDS_PER_LEVEL}
+          score={score}
+          progressColor="#4CAF50"
+          title="Français"
+        />
+      ) : (
+        <GameHeader
+          level={mathStatus.level}
+          totalLevels={mathStatus.totalLevels}
+          currentStep={mathStatus.currentStep}
+          totalSteps={mathStatus.totalSteps}
+          score={score}
+          progressColor="#6c5ce7"
+          title="Maths"
+        />
+      )}
+
 
       <main className="game-area">
         {appMode === 'french' ? (
           <>
-            <Flashcard word={currentWord} animate={!isValidated} isUpperCase={isUpperCase} />
+            <Flashcard word={currentWord} animate={!isValidated} isUpperCase={isUpperCase} color="#4CAF50" />
 
             <div className="controls">
               {!isValidated ? (
                 <button
-                  className={`btn-validate ${!isInteractable ? 'disabled' : ''}`}
+                  className={`btn-primary ${!isInteractable ? 'disabled' : ''}`}
                   onClick={handleValidate}
                   disabled={!isInteractable}
                   style={{ opacity: isInteractable ? 1 : 0.5, cursor: isInteractable ? 'pointer' : 'not-allowed' }}
@@ -215,20 +238,25 @@ function App() {
                 </button>
               ) : (
                 <div className="validated-controls">
-                  <button className="btn-secondary" onClick={() => speakWord(currentWord)}>
+                  <button className="btn-secondary btn-round" onClick={() => speakWord(currentWord)}>
                     <Volume2 size={24} />
                   </button>
-                  <button className="btn-next" onClick={nextWord}>
+                  <button className="btn-accent pulse" onClick={nextWord}>
                     <span>{wordIndex === levelWords.length - 1 ? "Terminer le Niveau" : "Mot Suivant"}</span>
                     <ArrowRight size={28} />
                   </button>
                 </div>
               )}
             </div>
+
           </>
         ) : (
-          <MathGame onCorrect={() => setScore(s => s + 1)} />
+          <MathGame
+            onCorrect={() => setScore(s => s + 1)}
+            onStatusChange={setMathStatus}
+          />
         )}
+
       </main>
 
       <footer className="footer">
