@@ -141,12 +141,14 @@ h1 {
   display: flex;
   align-items: center;
   gap: 15px;
-  background: white;
-  padding: 12px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
-  animation: slideUp 0.3s ease-out;
+  background: var(--card-background);
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 @keyframes slideUp {
@@ -161,34 +163,85 @@ h1 {
   }
 }
 
+.theme-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.theme-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.theme-select-dropdown {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 2px solid var(--color-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--card-background);
+  color: var(--text-color);
+  outline: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+}
+
+.theme-select-dropdown:hover {
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
 .btn-toggle-case {
   background: #f0f0f0;
   color: #333;
   font-size: 0.8rem;
-  padding: 6px 12px;
-  border-radius: 10px;
-  box-shadow: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   min-width: unset;
   border: 2px solid transparent;
   width: auto;
   height: auto;
+  transition: all 0.3s ease;
+}
+
+.btn-toggle-case:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-toggle-case.active {
-  background: #4ECDC4;
+  background: var(--color-primary);
   color: white;
+  border-color: var(--color-primary);
 }
 
 .voice-select-dropdown {
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 10px 15px;
+  border-radius: 12px;
   border: 2px solid #ddd;
   font-family: inherit;
   font-size: 0.9rem;
-  background: white;
-  color: #333;
+  background: var(--card-background);
+  color: var(--text-color);
   outline: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.voice-select-dropdown:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Mobile adjustments */

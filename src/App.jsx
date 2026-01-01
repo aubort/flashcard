@@ -12,6 +12,7 @@ import { words } from './data/words';
 
 
 import { speakWord, getFrenchVoices, setVoice } from './utils/speech';
+import { themes, applyTheme, getThemeKeys } from './utils/themes';
 import './App.css';
 
 const WORDS_PER_LEVEL = 10;
@@ -66,6 +67,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [isUpperCase, setIsUpperCase] = useState(true);
   const [appMode, setAppMode] = useState('french'); // 'french' or 'math'
+  const [selectedTheme, setSelectedTheme] = useState('default');
   const [mathStatus, setMathStatus] = useState({
     level: 1,
     totalLevels: 4,
@@ -73,6 +75,11 @@ function App() {
     totalSteps: 10
   });
 
+
+  // Apply theme on mount and when changed
+  useEffect(() => {
+    applyTheme(selectedTheme);
+  }, [selectedTheme]);
 
   // Initialize voices
   useEffect(() => {
@@ -99,6 +106,10 @@ function App() {
       setVoice(voice);
       speakWord("Bonjour"); // Test the voice
     }
+  };
+
+  const handleThemeChange = (e) => {
+    setSelectedTheme(e.target.value);
   };
 
 
@@ -269,6 +280,22 @@ function App() {
           </button>
           {showSettings && (
             <div className="settings-panel">
+              <div className="theme-selector">
+                <label htmlFor="theme-select" className="theme-label">Thème:</label>
+                <select
+                  id="theme-select"
+                  onChange={handleThemeChange}
+                  value={selectedTheme}
+                  className="theme-select-dropdown"
+                >
+                  {getThemeKeys().map(key => (
+                    <option key={key} value={key}>
+                      {themes[key].emoji} {themes[key].name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <button
                 className={`btn-toggle-case ${isUpperCase ? 'active' : ''}`}
                 onClick={() => setIsUpperCase(!isUpperCase)}

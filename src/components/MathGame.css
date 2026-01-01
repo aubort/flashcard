@@ -44,48 +44,53 @@
 }
 
 .option-btn {
-    background: white;
-    border: 3px solid #eee;
-    padding: 1rem;
-    font-size: 2rem;
-    border-radius: 15px;
+    background: var(--card-background);
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    padding: 1.2rem;
+    font-size: 2.2rem;
+    font-weight: 800;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.2s;
-    color: #2d3436;
+    transition: all 0.3s ease;
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .option-btn:hover:not(:disabled) {
-    border-color: #6c5ce7;
-    transform: translateY(-2px);
+    border-color: var(--color-math);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .option-btn.selected {
-    border-color: #6c5ce7;
-    background-color: #f8f7ff;
+    border-color: var(--color-math);
+    background-color: rgba(108, 92, 231, 0.1);
+    transform: scale(1.02);
 }
 
 .option-btn.correct {
-    background-color: #4CAF50;
-    border-color: #45a049;
+    background-color: var(--color-success);
+    border-color: var(--color-success);
     color: white;
+    animation: popAnim 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .option-btn.wrong {
-    background-color: #ff6b6b;
-    border-color: #ee5253;
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
     color: white;
-    animation: shake 0.5s;
+    animation: shake 0.6s;
 }
 
 .feedback-error {
-    color: #ff6b6b;
-    font-weight: bold;
-    font-size: 1.2rem;
-    animation: fadeIn 0.3s;
+    color: var(--color-secondary);
+    font-weight: 900;
+    font-size: 1.4rem;
+    animation: shake 0.6s, fadeIn 0.3s;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .math-controls {
@@ -99,11 +104,13 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    animation: fadeIn 0.5s;
+    animation: fadeIn 0.6s ease-out;
 }
 
 .math-level-complete h1 {
-    font-size: 3rem;
-    color: #6c5ce7;
+    font-size: 3.5rem;
+    color: var(--color-math);
     margin-bottom: 1rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    animation: popAnim 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }

@@ -1,14 +1,30 @@
 .progress-bar-container {
     width: 100%;
     max-width: 400px;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
+    height: 14px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
     overflow: hidden;
     margin: 10px auto;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .progress-bar {
     height: 100%;
-    transition: width 0.3s ease;
+    transition: width 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background: linear-gradient(90deg, var(--color-progress-bar), var(--color-success));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 20px;
 }
