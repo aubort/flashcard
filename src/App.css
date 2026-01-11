@@ -191,9 +191,58 @@ h1 {
   cursor: pointer;
 }
 
+/* Back button for playing view */
+.back-button-simple {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 1rem;
+}
+
+.back-button-simple:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.back-button-simple:active {
+  transform: scale(0.95);
+}
+
+/* Section header for playing view */
+.section-view-header {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #666;
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
   h1 {
     font-size: 2rem;
+  }
+
+  .back-button-simple {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 }

@@ -5,7 +5,7 @@
     justify-content: center;
     height: 100%;
     width: 100%;
-    background-color: #E0F7FA;
+    background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
     border-radius: 30px;
     padding: 2rem;
     animation: fadeIn 0.5s;
@@ -13,38 +13,95 @@
 }
 
 .level-complete-screen h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: #00BCD4;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stars-display {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.star-earned {
+    animation: starPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
+}
+
+.star-unearned {
+    opacity: 0.3;
+}
+
+.encouragement-message {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 1rem 0;
+}
+
+.score-display {
+    font-size: 1.5rem;
+    color: #666;
+    font-weight: 600;
     margin-bottom: 2rem;
 }
 
-.stars-gained {
-    margin: 2rem 0;
+.level-complete-actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 1rem;
-}
-
-.stars-gained p {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #FFD700;
-    text-shadow: 2px 2px 0 #333;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .btn-large {
-    font-size: 2rem;
-    padding: 1.5rem 3.5rem;
+    font-size: 1.5rem;
+    padding: 1rem 2.5rem;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: #00BCD4;
+    border: 2px solid #00BCD4;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #00BCD4;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: scale(0.9);
     }
-
     to {
         opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes starPop {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-180deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
     }
 }
 
@@ -53,12 +110,31 @@
         font-size: 2.5rem;
     }
 
-    .stars-gained p {
-        font-size: 1.8rem;
+    .stars-display {
+        gap: 0.5rem;
+    }
+
+    .star-earned,
+    .star-unearned {
+        width: 60px;
+        height: 60px;
+    }
+
+    .encouragement-message {
+        font-size: 1.5rem;
+    }
+
+    .score-display {
+        font-size: 1.2rem;
     }
 
     .btn-large {
-        font-size: 1.5rem;
-        padding: 1.2rem 2.5rem;
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+    }
+
+    .btn-secondary {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
     }
 }
