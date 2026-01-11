@@ -1,10 +1,9 @@
 /**
- * SectionView - Container for section's level map and game play
- * Manages navigation between level selection and playing
+ * SectionView - Minimalist section container
+ * Shows level map with clean design
  */
 
-import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React from 'react';
 import LevelMap from './LevelMap';
 import './SectionView.css';
 
@@ -21,21 +20,18 @@ const SectionView = ({
   return (
     <div className="section-view">
       {/* Header */}
-      <div className="section-view-header" style={{ backgroundColor: section.color }}>
-        <button className="back-button" onClick={onBack}>
-          <ArrowLeft size={24} />
+      <div className="map-header" style={{ '--section-color': section.color }}>
+        <button className="back-btn" onClick={onBack}>
+          ← Retour
         </button>
-        <div className="section-view-title">
-          <span className="section-view-icon">{section.icon}</span>
-          <div>
-            <h1>{section.title}</h1>
-            <p>{section.subtitle}</p>
-          </div>
+        <div className="map-title">
+          <h2>{section.icon} {section.title}</h2>
+          <p>Choisis un niveau</p>
         </div>
       </div>
 
       {/* Content */}
-      <div className="section-view-content">
+      <div className="map-body">
         {showMap ? (
           <LevelMap
             section={section}

@@ -1,103 +1,69 @@
+/* SectionView - Minimalist Design */
 .section-view {
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--white, #fff);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
 }
 
-.section-view-header {
-  padding: 1.5rem;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.map-header {
+  padding: 1.25rem;
+  background: var(--section-color, #58CC02);
+  color: var(--white, #fff);
   display: flex;
   align-items: center;
   gap: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  animation: slideInDown 0.3s ease-out;
 }
 
-.back-button {
-  background: rgba(255, 255, 255, 0.2);
+.back-btn {
+  background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  width: 48px;
-  height: 48px;
+  color: var(--white, #fff);
+  padding: 0.5rem 1rem;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
-.back-button:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.05);
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
-.back-button:active {
-  transform: scale(0.95);
-}
-
-.section-view-title {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-}
-
-.section-view-icon {
-  font-size: 3rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.section-view-title h1 {
+.map-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
   margin: 0;
-  font-size: 1.8rem;
-  font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.section-view-title p {
-  margin: 0.25rem 0 0 0;
-  font-size: 1rem;
+.map-title p {
+  font-size: 0.875rem;
   opacity: 0.9;
+  margin: 0;
 }
 
-.section-view-content {
+.map-body {
+  padding: 2rem 1.5rem;
+  background: var(--gray-50, #FAFAFA);
   flex: 1;
   overflow-y: auto;
 }
 
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* Responsive */
+@media (min-width: 768px) {
+  .map-body {
+    padding: 2rem;
   }
 }
 
-@media (max-width: 768px) {
-  .section-view-header {
-    padding: 1rem;
-  }
-
-  .section-view-icon {
-    font-size: 2.5rem;
-  }
-
-  .section-view-title h1 {
-    font-size: 1.5rem;
-  }
-
-  .section-view-title p {
-    font-size: 0.9rem;
+@media (min-width: 1024px) {
+  .map-body {
+    padding: 2.5rem 2rem;
   }
 }

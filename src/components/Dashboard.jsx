@@ -1,42 +1,28 @@
 /**
- * Dashboard - Home screen showing all learning sections
- * Inspired by Duolingo's home screen with section cards
+ * Dashboard - Minimalist home screen
+ * Shows learning sections with clean, focused design
  */
 
 import React from 'react';
-import { Flame, Trophy, Star } from 'lucide-react';
 import './Dashboard.css';
 
 const Dashboard = ({ sections, progressData, streak, onSectionSelect }) => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">
-          <span className="title-emoji">🎓</span>
-          Apprends en t'amusant!
-        </h1>
-        <p className="dashboard-subtitle">Choisis une activité pour commencer</p>
-      </div>
+        <h1 className="greeting">Bonjour 👋</h1>
+        <p className="subtext">Continue ton apprentissage</p>
 
-      {/* Streak Display */}
-      <div className="streak-card">
-        <div className="streak-icon">
-          <Flame size={32} color="#FF6B35" fill={streak.current > 0 ? '#FF6B35' : 'none'} />
-        </div>
-        <div className="streak-info">
-          <div className="streak-current">{streak.current} jour{streak.current !== 1 ? 's' : ''}</div>
-          <div className="streak-label">Série actuelle</div>
-        </div>
-        {streak.longest > 0 && (
-          <div className="streak-record">
-            <Trophy size={20} color="#FFD700" />
-            <span>Record: {streak.longest}</span>
+        <div className="streak-card">
+          <div className="streak-icon">🔥</div>
+          <div className="streak-text">
+            <h3>{streak.current} jour{streak.current !== 1 ? 's' : ''}</h3>
+            <p>Record: {streak.longest} jour{streak.longest !== 1 ? 's' : ''}</p>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Section Cards */}
-      <div className="sections-grid">
+      <div className="sections">
         {sections.map((section) => {
           const progress = progressData.sections[section.id];
           const completedLevels = progress?.completedLevels?.length || 0;
@@ -48,52 +34,30 @@ const Dashboard = ({ sections, progressData, streak, onSectionSelect }) => {
             <div
               key={section.id}
               className="section-card"
+              style={{ '--section-color': section.color }}
               onClick={() => onSectionSelect(section.id)}
-              style={{ borderTopColor: section.color }}
             >
-              <div className="section-icon">{section.icon}</div>
-              <div className="section-content">
-                <h2 className="section-title">{section.title}</h2>
-                <p className="section-subtitle">{section.subtitle}</p>
-
-                {/* Progress Bar */}
-                <div className="section-progress">
-                  <div className="progress-bar-container">
-                    <div
-                      className="progress-bar-fill"
-                      style={{
-                        width: `${percentage}%`,
-                        backgroundColor: section.color
-                      }}
-                    ></div>
-                  </div>
-                  <div className="progress-text">
-                    {completedLevels} / {section.totalLevels} niveaux
-                  </div>
-                </div>
-
-                {/* Stars */}
-                <div className="section-stars">
-                  <Star size={16} fill="#FFD700" color="#FFD700" />
-                  <span className="stars-count">
-                    {totalStars} / {maxStars}
-                  </span>
+              <div className="section-top">
+                <div className="section-icon-box">{section.icon}</div>
+                <div className="section-text">
+                  <h3>{section.title}</h3>
+                  <p>{section.subtitle}</p>
                 </div>
               </div>
 
-              {completedLevels === section.totalLevels && (
-                <div className="section-completed">
-                  <Trophy size={24} color="#FFD700" />
+              <div className="progress-container">
+                <div className="progress-bar">
+                  <div className="progress-fill" style={{ width: `${percentage}%` }}></div>
                 </div>
-              )}
+              </div>
+
+              <div className="section-meta">
+                <span>Niveau {completedLevels + 1} / {section.totalLevels}</span>
+                <span>⭐ {totalStars} / {maxStars}</span>
+              </div>
             </div>
           );
         })}
-      </div>
-
-      {/* Add more sections prompt */}
-      <div className="add-section-hint">
-        <p>Plus d'activités bientôt disponibles! 🚀</p>
       </div>
     </div>
   );
